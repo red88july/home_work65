@@ -5,7 +5,6 @@
   import TypeWriter from '../../images/ic-typewriter.png';
   import '../../styles.css';
 
-
   const Edit: React.FC = () => {
       const [quotes, setQuotes] = useState<Quotes>({
           id: '',
