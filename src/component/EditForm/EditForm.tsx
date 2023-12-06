@@ -5,7 +5,7 @@
   import TypeWriter from '../../images/ic-typewriter.png';
   import '../../styles.css';
 
-  const Edit: React.FC = () => {
+  const EditForm: React.FC = () => {
       const [quotes, setQuotes] = useState<Quotes>({
           id: '',
           category: '',
@@ -60,12 +60,10 @@
                     onChange={inputChange}
                   >
                     <option value="">Choise...</option>
-                    <option value="All">All</option>
-                    <option value="Star Wars">Star Wars</option>
-                    <option value="Famous People">Famous People</option>
-                    <option value="Saying">Saying</option>
-                    <option value="Humor">Humor</option>
-                    <option value="Motivational">Motivational</option>
+                    <option value="All">Home</option>
+                    <option value="Star Wars">About</option>
+                    <option value="Famous People">Contacts</option>
+                    <option value="Saying">Devision</option>
                   </select>
                 </div>
                   <label htmlFor="title-input" className="form-label">Add your name</label>
@@ -103,4 +101,4 @@
       );
   };
 
-  export default Edit;
+  export default EditForm;

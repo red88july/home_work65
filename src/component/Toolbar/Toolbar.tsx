@@ -1,6 +1,6 @@
 import React from 'react';
 import reactLogo from '../../images/ic-react.png';
-import Pages from "../Pages/Pages.tsx";
+import Navigation from "../Navigation/Navigation.tsx";
 
 const Toolbar: React.FC = () => {
   return (
@@ -14,9 +14,9 @@ const Toolbar: React.FC = () => {
           <strong>Application about different content on web-page</strong>
         </div>
       </div>
-
-        <Pages />
-
+      <div className="nav-menu">
+        <Navigation />
+      </div>
     </nav>
   );
 };

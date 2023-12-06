@@ -1,10 +1,9 @@
 import React from 'react';
-import Edit from "../../component/Edit/Edit.tsx";
+import EditForm from "../../component/EditForm/EditForm.tsx";
 
 const AdminPage:React.FC = () => {
-
     return (
-        <Edit/>
+        <EditForm />
     );
 };
 

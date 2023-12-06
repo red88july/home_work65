@@ -1,7 +1,8 @@
 import React from 'react';
 import {NavLink} from "react-router-dom";
 
-const Pages:React.FC = () => {
+const Navigation:React.FC = () => {
+
     return (
         <>
             <ul className="navbar-nav mr-auto flex-row flex-nowrap align-items-center justify-content-center gap-3">
@@ -25,4 +26,4 @@ const Pages:React.FC = () => {
     );
 };
 
-export default Pages;
+export default Navigation;
