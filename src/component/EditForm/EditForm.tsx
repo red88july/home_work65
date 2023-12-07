@@ -32,10 +32,15 @@ const EditForm: React.FC = () => {
   const inputChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       const {name, value} = event.target;
-      setContent((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
+      if (value === '') {
+          alert (`Field ${name} is not to be empty.`);
+          return;
+      } else {
+        setContent((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
     },
     []
   );
@@ -55,6 +60,13 @@ const EditForm: React.FC = () => {
       console.error(`Error while submitting form: ${error}`);
     } finally {
       setLoading(false);
+
+      setContent({
+        title: '',
+        content: '',
+      });
+
+      setSelectedPage('');
     }
   };
 
