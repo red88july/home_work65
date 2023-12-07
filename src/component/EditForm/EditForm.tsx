@@ -60,53 +60,55 @@ const EditForm: React.FC = () => {
 
   return (
     <>
-      <form onSubmit={onFormSubmit} className="w-25 bg-light p-3 rounded-3">
-        <div className="d-flex justify-content-center align-items-center">
-          <div className="w-50 pb-3 mb-5 text-center border-2 border-bottom border-secondary">
-            <img src={TypeWriter} alt="Typywriter icon"/>
+      <div className="d-flex justify-content-center align-items-center">
+        <form onSubmit={onFormSubmit} className="bg-light p-3 border border-4 rounded-3 input-form mt-4">
+          <div className="d-flex justify-content-center align-items-center">
+            <div className="w-50 pb-3 mb-5 text-center border-2 border-bottom border-secondary">
+              <img src={TypeWriter} alt="Typywriter icon"/>
+            </div>
           </div>
-        </div>
-        <div className="mb-3">
-          <div className="form-group mb-3">
-            <label htmlFor="type">Choose page for edit</label>
-            <select
-              className="form-select"
-              value={selectedPage}
-              onChange={(e) => setSelectedPage(e.target.value)}
-            required autoFocus>
-              <option value="">Choose page</option>
-              <option value="home">Home</option>
-              <option value="about">About</option>
-              <option value="contacts">Contacts</option>
-              <option value="divisions">Divisions</option>
-              <option value="elonmusk">About Elon Musk</option>
-            </select>
-          </div>
-          <label htmlFor="title-input" className="form-label">
-            Edit title
-          </label>
-          <input
-            name="title"
-            value={content.title}
-            onChange={inputChange}
-            className="form-control input-title"
+          <div className="mb-3">
+            <div className="form-group mb-3">
+              <label htmlFor="type">Choose page for edit</label>
+              <select
+                className="form-select"
+                value={selectedPage}
+                onChange={(e) => setSelectedPage(e.target.value)}
+                required autoFocus>
+                <option value="">Choose page</option>
+                <option value="home">Home</option>
+                <option value="about">About</option>
+                <option value="contacts">Contacts</option>
+                <option value="divisions">Divisions</option>
+                <option value="elonmusk">About Elon Musk</option>
+              </select>
+            </div>
+            <label htmlFor="title-input" className="form-label">
+              Edit title
+            </label>
+            <input
+              name="title"
+              value={content.title}
+              onChange={inputChange}
+              className="form-control input-title"
             />
-        </div>
-        <div className="mb-3">
-          <label htmlFor="input-message" className="form-label">
-            Edit content
-          </label>
-          <textarea
-            name="content"
-            value={content.content}
-            onChange={inputChange}
-            className="form-control input-content"
-          />
-        </div>
-        <button type="submit" className="btn btn-success">
-          Save
-        </button>
-      </form>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="input-message" className="form-label">
+              Edit content
+            </label>
+            <textarea
+              name="content"
+              value={content.content}
+              onChange={inputChange}
+              className="form-control input-content"
+            />
+          </div>
+          <button type="submit" className="btn btn-success">
+            Save
+          </button>
+        </form>
+      </div>
       {loading && <Spinner/>}
     </>
   );
