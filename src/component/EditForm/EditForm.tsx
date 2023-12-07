@@ -1,104 +1,116 @@
-  import axiosApi from "../../axiosApi.ts";
-  import React, {useCallback, useState} from 'react';
-  import {Quotes} from '../../types';
-  import Spinner from "../Spinner/Spinner.tsx";
-  import TypeWriter from '../../images/ic-typewriter.png';
-  import '../../styles.css';
+import axiosApi from '../../axiosApi.ts';
+import React, {useCallback, useState, useEffect} from 'react';
+import {Content} from '../../types';
+import '../../styles.css';
+import Spinner from '../Spinner/Spinner';
+import TypeWriter from '../../images/ic-typewriter.png';
 
-  const EditForm: React.FC = () => {
-      const [quotes, setQuotes] = useState<Quotes>({
-          id: '',
-          category: '',
-          author: '',
-          quote: '',
-      });
+const EditForm: React.FC = () => {
+  const [content, setContent] = useState<Content>({
+    title: '',
+    content: '',
+  });
 
-      const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [selectedPage, setSelectedPage] = useState<string>('');
 
-      const inputChange = useCallback((event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-          const randomId = `${Math.random()}`;
-          const {name, value} = event.target;
-          setQuotes((prevState) => ({
-              ...prevState,
-              id: randomId,
-              [name]: value,
-          }));
-      }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axiosApi.get(`/pages/${selectedPage}.json`);
+        setContent(response.data);
+      } catch (error) {
+        console.error(`Error fetching data: ${error}`);
+      }
+    };
 
+    if (selectedPage) {
+      fetchData();
+    }
+  }, [selectedPage]);
 
-      const onFormSubmit = async (event: React.FormEvent) => {
-          event.preventDefault();
-          setQuotes({id: '', category: '', author: '', quote: ''});
-          setLoading(true);
+  const inputChange = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+      const {name, value} = event.target;
+      setContent((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    },
+    []
+  );
 
-          const QuotesData = {
-            quotes,
-          };
+  const onFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    setLoading(true);
 
-          try {
-              await axiosApi.post('quotes.json', QuotesData);
-          } finally {
-              setLoading(false);
-          }
+    try {
+      const contentData = {
+        title: content.title,
+        content: content.content,
       };
 
-      let form = (
-          <form onSubmit={onFormSubmit} className="w-25 bg-light p-3 rounded-3">
-              <div className="d-flex justify-content-center align-items-center">
-                  <div className="w-50 pb-3 mb-5 text-center border-2 border-bottom border-secondary">
-                      <img src={TypeWriter} alt="Typywriter icon"/>
-                  </div>
-              </div>
-              <div className="mb-3">
-                <div className="form-group mb-3">
-                  <label htmlFor="type">Choose of category type</label>
-                  <select
-                    name="category"
-                    id="type"
-                    className="form-select"
-                    value={quotes.category}
-                    onChange={inputChange}
-                  >
-                    <option value="">Choise...</option>
-                    <option value="All">Home</option>
-                    <option value="Star Wars">About</option>
-                    <option value="Famous People">Contacts</option>
-                    <option value="Saying">Devision</option>
-                  </select>
-                </div>
-                  <label htmlFor="title-input" className="form-label">Add your name</label>
-                  <input
-                      name="author"
-                      onChange={inputChange}
-                      value={quotes.author}
-                      type="text"
-                      className="form-control"
-                      id="author-input"
-                      placeholder="Example: Obi-Van Kenobi" required/>
-              </div>
-              <div className="mb-3">
-                  <label htmlFor="input-message" className="form-label">Input your quote</label>
-                  <textarea
-                      value={quotes.quote}
-                      name="quote"
-                      onChange={inputChange}
-                      className="form-control"
-                      id="input-quote"
-                      placeholder='Example:"You Were My Brother, Anakin. I Loved You."' required/>
-              </div>
-              <button type="submit" className="btn btn-success">Add quote</button>
-          </form>
-      );
-
-      if (loading) {
-          form = <Spinner/>;
-      }
-
-      return (
-          <div className="mt-5 d-flex justify-content-center align-items-center">
-              {form}
-          </div>
-      );
+      await axiosApi.put(`/pages/${selectedPage}.json`, contentData);
+    } catch (error) {
+      console.error(`Error while submitting form: ${error}`);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  export default EditForm;
+  return (
+    <>
+      <form onSubmit={onFormSubmit} className="w-25 bg-light p-3 rounded-3">
+        <div className="d-flex justify-content-center align-items-center">
+          <div className="w-50 pb-3 mb-5 text-center border-2 border-bottom border-secondary">
+            <img src={TypeWriter} alt="Typywriter icon"/>
+          </div>
+        </div>
+        <div className="mb-3">
+          <div className="form-group mb-3">
+            <label htmlFor="type">Choose page for edit</label>
+            <select
+              className="form-select"
+              value={selectedPage}
+              onChange={(e) => setSelectedPage(e.target.value)}
+            required autoFocus>
+              <option value="">Choose page</option>
+              <option value="home">Home</option>
+              <option value="about">About</option>
+              <option value="contacts">Contacts</option>
+              <option value="divisions">Divisions</option>
+              <option value="elonmusk">About Elon Musk</option>
+            </select>
+          </div>
+          <label htmlFor="title-input" className="form-label">
+            Edit title
+          </label>
+          <input
+            name="title"
+            value={content.title}
+            onChange={inputChange}
+            className="form-control input-title"
+            />
+        </div>
+        <div className="mb-3">
+          <label htmlFor="input-message" className="form-label">
+            Edit content
+          </label>
+          <textarea
+            name="content"
+            value={content.content}
+            onChange={inputChange}
+            className="form-control input-content"
+          />
+        </div>
+        <button type="submit" className="btn btn-success">
+          Save
+        </button>
+      </form>
+      {loading && <Spinner/>}
+    </>
+  );
+};
+
+export default EditForm;
+

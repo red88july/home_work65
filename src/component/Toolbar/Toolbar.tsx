@@ -1,6 +1,6 @@
 import React from 'react';
+import Navigation from "../Navigation/Navigation";
 import reactLogo from '../../images/ic-react.png';
-import Navigation from "../Navigation/Navigation.tsx";
 
 const Toolbar: React.FC = () => {
   return (
