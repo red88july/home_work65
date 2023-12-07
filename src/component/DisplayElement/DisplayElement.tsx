@@ -13,7 +13,7 @@ const DisplayElement: React.FC = () => {
   const [pageData, setPageData] = useState<Content | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData =  async () => {
       try {
         const response = await fetchDataMain(`/pages/${pageName}.json`);
         setPageData(response);

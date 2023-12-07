@@ -1,10 +1,10 @@
 import axiosApi from '../../axiosApi.ts';
 import React, {useCallback, useState, useEffect} from 'react';
+import {useNavigate} from 'react-router-dom';
 import {Content} from '../../types';
 import '../../styles.css';
 import Spinner from '../Spinner/Spinner';
 import TypeWriter from '../../images/ic-typewriter.png';
-import {useNavigate} from 'react-router-dom';
 
 const EditForm: React.FC = () => {
   const navigate = useNavigate();
@@ -35,8 +35,8 @@ const EditForm: React.FC = () => {
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
       const {name, value} = event.target;
       if (value === '') {
-          alert (`Field ${name} is not to be empty.`);
-          return;
+        alert(`Field ${name} is not to be empty.`);
+        return;
       } else {
         setContent((prevState) => ({
           ...prevState,
@@ -133,4 +133,3 @@ const EditForm: React.FC = () => {
 };
 
 export default EditForm;
-
