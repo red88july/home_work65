@@ -81,9 +81,10 @@ const EditForm: React.FC = () => {
           </div>
           <div className="mb-3">
             <div className="form-group mb-3">
-              <label htmlFor="type">Choose page for edit</label>
+              <label htmlFor="select-from">Choose page for edit</label>
               <select
-                className="form-select"
+                id="select-from"
+                className="form-select mt-2"
                 value={selectedPage}
                 onChange={(e) => setSelectedPage(e.target.value)}
                 required autoFocus>
@@ -95,10 +96,11 @@ const EditForm: React.FC = () => {
                 <option value="elonmusk">About Elon Musk</option>
               </select>
             </div>
-            <label htmlFor="title-input" className="form-label">
+            <label htmlFor="input-title" className="form-label">
               Edit title
             </label>
             <input
+              id="input-title"
               name="title"
               value={content.title}
               onChange={inputChange}
@@ -106,10 +108,11 @@ const EditForm: React.FC = () => {
             />
           </div>
           <div className="mb-3">
-            <label htmlFor="input-message" className="form-label">
+            <label htmlFor="input-content" className="form-label">
               Edit content
             </label>
             <textarea
+              id="input-content"
               name="content"
               value={content.content}
               onChange={inputChange}
