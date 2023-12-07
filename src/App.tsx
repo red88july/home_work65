@@ -1,8 +1,8 @@
-import Toolbar from './component/Toolbar/Toolbar';
-import AdminPage from './pages/AdminPage/AdminPage';
-import PageNoFoundPicture from '../src/images/404PageNotFound.jpg';
 import {Route, Routes} from 'react-router-dom';
+import Toolbar from './component/Toolbar/Toolbar';
+import EditForm from './component/EditForm/EditForm.tsx';
 import DisplayElement from './component/DisplayElement/DisplayElement';
+import PageNoFoundPicture from '../src/images/404PageNotFound.jpg';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
           <Route path="/pages/:pageName"
                  element={(<DisplayElement />)}/>
           <Route path="/pages/admin"
-                 element={(<AdminPage/>)}/>
+                 element={(<EditForm />)}/>
           <Route path="*" element={(
             <div className="container-fluid pic-container">
               <img

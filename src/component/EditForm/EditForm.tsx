@@ -4,8 +4,10 @@ import {Content} from '../../types';
 import '../../styles.css';
 import Spinner from '../Spinner/Spinner';
 import TypeWriter from '../../images/ic-typewriter.png';
+import {useNavigate} from 'react-router-dom';
 
 const EditForm: React.FC = () => {
+  const navigate = useNavigate();
   const [content, setContent] = useState<Content>({
     title: '',
     content: '',
@@ -67,6 +69,7 @@ const EditForm: React.FC = () => {
       });
 
       setSelectedPage('');
+      navigate(`/pages/${selectedPage}`);
     }
   };
 
